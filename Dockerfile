@@ -4,6 +4,7 @@ FROM openjdk:11
 ARG GS_VERSION=2.22.0
 ARG GS_HOME=/opt/geoserver
 
+ENV GEOSERVER_HOME=$GS_HOME
 ENV GEOSERVER_DATA_DIR=$GS_HOME/data_dir
 
 # init
@@ -12,25 +13,18 @@ RUN apt update && \
     apt install -y --no-install-recommends unzip wget curl && \
     apt clean && \
     rm -rf /var/cache/apt/* && \
-    rm -rf /var/lib/apt/lists/*
-
-WORKDIR /tmp
-
-# install geoserver
-RUN wget -q -O /tmp/geoserver.zip https://downloads.sourceforge.net/project/geoserver/GeoServer/$GS_VERSION/geoserver-$GS_VERSION-bin.zip && \
+    rm -rf /var/lib/apt/lists/* && \
+    wget -q -O /tmp/geoserver.zip https://downloads.sourceforge.net/project/geoserver/GeoServer/$GS_VERSION/geoserver-$GS_VERSION-bin.zip && \
     mkdir -p $GS_HOME && \
-    unzip -q geoserver.zip -d $GS_HOME
-    
-# cleanup
-RUN apt purge -y && \
+    unzip -q /tmp/geoserver.zip -d $GS_HOME && \
+    apt purge -y && \
     apt autoremove --purge -y && \
-    rm -rf /tmp/*
-
-# copy scripts
-RUN chmod +x $GS_HOME/bin/*.sh
-
-ENTRYPOINT $GS_HOME/bin/startup.sh
+    rm -rf /tmp/* && \
+    chmod +x $GS_HOME/bin/*.sh
 
 WORKDIR $GS_HOME
 
 EXPOSE 8079
+
+ENTRYPOINT $GEOSERVER_HOME/bin/startup.sh
+
