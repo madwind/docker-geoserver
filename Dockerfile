@@ -10,7 +10,7 @@ ENV $GEOSERVER_DATA_DIR=$GS_HOME/data_dir
 # init
 RUN apt update && \
     apt -y upgrade && \
-    apt install -y --no-install-recommends unzip wget curl&& \
+    apt install -y --no-install-recommends unzip wget curl && \
     apt clean && \
     rm -rf /var/cache/apt/* && \
     rm -rf /var/lib/apt/lists/*
