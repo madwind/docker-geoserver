@@ -21,8 +21,8 @@ WORKDIR /tmp
 # install geoserver
 RUN wget -q -O /tmp/geoserver.zip https://downloads.sourceforge.net/project/geoserver/GeoServer/$GEOSERVER_VERSION/geoserver-$GEOSERVER_VERSION-bin.zip && \
     mkdir -p $GEOSERVER_HOME && \
-    unzip -q geoserver.zip -d $GEOSERVER_HOME && \
-
+    unzip -q geoserver.zip -d $GEOSERVER_HOME
+    
 # cleanup
 RUN apt purge -y && \
     apt autoremove --purge -y && \
