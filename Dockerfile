@@ -20,7 +20,8 @@ RUN apt update && \
     apt purge -y && \
     apt autoremove --purge -y && \
     rm -rf /tmp/* && \
-    chmod +x $GS_HOME/bin/*.sh
+    chmod +x $GS_HOME/bin/*.sh && \
+    sed -i '137d;158d;189d;194d' $GS_HOME/webapps/geoserver/WEB-INF/web.xml
 
 WORKDIR $GS_HOME
 
