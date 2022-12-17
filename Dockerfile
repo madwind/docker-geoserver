@@ -5,7 +5,7 @@ ARG GS_VERSION=2.22.0
 ARG GS_HOME=/opt/geoserver
 
 ENV GEOSERVER_HOME=$GS_HOME
-ENV $GEOSERVER_DATA_DIR=$GS_HOME/data_dir
+ENV GEOSERVER_DATA_DIR=$GS_HOME/data_dir
 
 # init
 RUN apt update && \
